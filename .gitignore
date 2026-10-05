@@ -7,7 +7,11 @@ __pycache__/
 .env
 data/raw/
 data/staged/
+data/exports/
+data/manifests/
+data/report_previews/
 warehouse/*.duckdb*
 outputs/**/*.html
+outputs/**/*.inspect.ndjson
 !outputs/cms-hospital-quality-cost-benchmarking/cms_hospital_comparison.xlsx
 
