@@ -94,6 +94,8 @@ SELECT
     total_costs,
     total_assets,
     total_liabilities,
+    total_fund_balances,
+    total_liabilities_and_fund_balances,
     inpatient_revenue,
     outpatient_revenue,
     total_patient_revenue,
