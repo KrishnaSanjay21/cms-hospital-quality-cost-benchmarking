@@ -1,0 +1,23 @@
+# Dataset identifiers are stable CMS product/provider-data identifiers.
+provider_data:
+  hospital_general:
+    dataset_id: xubh-q36u
+    grain: one row per CMS Certification Number
+  hcahps:
+    dataset_id: dgck-syfz
+    grain: hospital and survey measure
+  complications_deaths:
+    dataset_id: ynj2-r877
+    grain: hospital and outcome measure
+  unplanned_visits:
+    dataset_id: 632h-zaca
+    grain: hospital and utilization measure
+  mspb:
+    dataset_id: rrqw-56er
+    grain: hospital and spending measure
+
+cost_report:
+  dataset_id: 44060663-47d8-4ced-a115-b53b4c270acb
+  year: 2023
+  grain: hospital cost-report filing
+

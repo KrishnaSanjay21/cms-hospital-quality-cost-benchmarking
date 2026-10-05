@@ -1,0 +1,53 @@
+quality:
+  overall_rating:
+    label: Overall hospital rating
+    unit: stars
+    direction: higher_is_better
+    source: Hospital General Information
+  worse_outcome_measure_count:
+    label: Outcomes worse than national count
+    unit: measures
+    direction: lower_is_better
+    source: Complications and Deaths / Unplanned Visits
+
+experience:
+  hcahps_summary_star:
+    label: HCAHPS summary star rating
+    unit: stars
+    direction: higher_is_better
+    source: HCAHPS
+  hcahps_completed_surveys:
+    label: Completed HCAHPS surveys
+    unit: surveys
+    direction: context_only
+    source: HCAHPS
+
+utilization:
+  bed_occupancy_rate:
+    label: Bed occupancy proxy
+    unit: percent
+    direction: context_only
+    source: Hospital Cost Report
+  discharges_per_bed:
+    label: Discharges per staffed bed
+    unit: discharges per bed
+    direction: context_only
+    source: Hospital Cost Report
+
+financial:
+  operating_expense_per_discharge:
+    label: Operating expense per discharge
+    unit: USD per discharge
+    direction: lower_is_better
+    source: Hospital Cost Report
+  operating_margin:
+    label: Operating margin proxy
+    unit: percent
+    direction: higher_is_better
+    source: Hospital Cost Report
+  mspb_ratio:
+    label: Medicare spending per beneficiary ratio
+    unit: ratio to national median
+    direction: lower_is_better
+    source: Medicare Spending Per Beneficiary
+
