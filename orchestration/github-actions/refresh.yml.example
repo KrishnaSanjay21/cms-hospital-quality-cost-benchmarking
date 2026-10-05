@@ -1,0 +1,29 @@
+name: Validate CMS hospital pipeline
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 9 15 * *"
+
+jobs:
+  test-and-refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - run: pytest
+      - run: python scripts/run_pipeline.py refresh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cms-hospital-reporting-marts
+          path: |
+            data/exports/*.csv
+            data/manifests/*.json
+          retention-days: 14
+

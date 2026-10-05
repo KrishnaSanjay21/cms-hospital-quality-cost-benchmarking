@@ -1,0 +1,12 @@
+services:
+  cms-hospital-refresh:
+    build: .
+    environment:
+      CMS_DATA_DIR: /app/data
+      CMS_WAREHOUSE_PATH: /app/warehouse/cms_hospital.duckdb
+      CMS_HTTP_TIMEOUT_SECONDS: 180
+      CMS_PAGE_SIZE: 1000
+    volumes:
+      - ./data:/app/data
+      - ./warehouse:/app/warehouse
+
