@@ -7,7 +7,6 @@ import typer
 from .pipeline import run_pipeline
 from .settings import Settings
 
-
 app = typer.Typer(help="Build and validate the CMS hospital benchmark warehouse.")
 
 
@@ -25,4 +24,3 @@ def refresh(
 
 if __name__ == "__main__":
     app()
-

@@ -3,13 +3,13 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Self
 
 import httpx
 import pandas as pd
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
 from .io import write_snapshot
-
 
 COST_REPORT_DATASET_ID = "44060663-47d8-4ced-a115-b53b4c270acb"
 COST_API_ROOT = "https://data.cms.gov/data-api/v1/dataset"
@@ -59,9 +59,8 @@ class CostReportClient:
     def close(self) -> None:
         self.client.close()
 
-    def __enter__(self) -> "CostReportClient":
+    def __enter__(self) -> Self:
         return self
 
     def __exit__(self, *_: object) -> None:
         self.close()
-

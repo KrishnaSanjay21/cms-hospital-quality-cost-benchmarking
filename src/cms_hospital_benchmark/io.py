@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -25,12 +25,11 @@ def write_snapshot(frame: pd.DataFrame, path: Path, source_url: str) -> dict[str
     frame.to_parquet(path, index=False)
     manifest = {
         "source_url": source_url,
-        "retrieved_at_utc": datetime.now(timezone.utc).isoformat(),
-        "rows": int(len(frame)),
+        "retrieved_at_utc": datetime.now(UTC).isoformat(),
+        "rows": len(frame),
         "columns": list(frame.columns),
         "sha256": sha256_file(path),
     }
     manifest_path = path.with_suffix(".manifest.json")
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     return manifest
-

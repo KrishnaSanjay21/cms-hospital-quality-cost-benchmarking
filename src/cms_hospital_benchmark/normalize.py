@@ -7,7 +7,6 @@ from pathlib import Path
 
 import pandas as pd
 
-
 MISSING_MARKERS = {
     "",
     "Not Available",
@@ -109,4 +108,3 @@ def stage_all(raw_dir: Path, staged_dir: Path) -> dict[str, int]:
         frame.to_parquet(output, index=False)
         counts[dataset_name] = len(frame)
     return counts
-

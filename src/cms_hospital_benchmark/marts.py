@@ -22,4 +22,3 @@ def export_marts(warehouse_path: Path, output_dir: Path) -> dict[str, int]:
             frame.to_csv(output_dir / f"{table}.csv", index=False)
             counts[table] = len(frame)
     return counts
-

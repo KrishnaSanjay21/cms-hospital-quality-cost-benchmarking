@@ -23,4 +23,3 @@ def run_data_quality(warehouse_path: Path, sql_dir: Path) -> pd.DataFrame:
         names = ", ".join(failures["check_name"].tolist())
         raise DataQualityError(f"Critical data-quality checks failed: {names}")
     return results
-

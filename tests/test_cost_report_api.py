@@ -12,4 +12,3 @@ def test_cost_report_pagination_stops_on_short_page(monkeypatch):
     assert len(frame) == 3
     assert frame.iloc[-1]["Provider CCN"] == "000003"
     client.close()
-

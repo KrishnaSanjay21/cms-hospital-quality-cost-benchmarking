@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from .cost_report_api import CostReportClient
@@ -17,7 +17,7 @@ from .warehouse import build_relational_model
 
 def run_pipeline(settings: Settings, project_root: Path, extract: bool = True) -> dict:
     settings.ensure_directories()
-    started = datetime.now(timezone.utc)
+    started = datetime.now(UTC)
     manifests: dict[str, dict] = {}
 
     if extract:
@@ -40,7 +40,7 @@ def run_pipeline(settings: Settings, project_root: Path, extract: bool = True) -
     quality = run_data_quality(settings.warehouse_path, sql_dir)
     mart_counts = export_marts(settings.warehouse_path, settings.data_dir / "exports")
 
-    completed = datetime.now(timezone.utc)
+    completed = datetime.now(UTC)
     summary = {
         "status": "success",
         "started_at_utc": started.isoformat(),
@@ -55,4 +55,3 @@ def run_pipeline(settings: Settings, project_root: Path, extract: bool = True) -
     summary_path = settings.manifest_dir / "latest_run.json"
     summary_path.write_text(json.dumps(summary, indent=2, default=str), encoding="utf-8")
     return summary
-

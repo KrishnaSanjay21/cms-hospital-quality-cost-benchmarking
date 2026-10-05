@@ -1,0 +1,2 @@
+[console_scripts]
+cms-hospital = cms_hospital_benchmark.cli:app

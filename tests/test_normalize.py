@@ -24,4 +24,3 @@ def test_provider_missing_markers_and_rating_become_numeric():
     result = normalize_frame(frame, "hospital_general")
     assert result.loc[0, "hospital_overall_rating"] == 4
     assert pd.isna(result.loc[1, "hospital_overall_rating"])
-

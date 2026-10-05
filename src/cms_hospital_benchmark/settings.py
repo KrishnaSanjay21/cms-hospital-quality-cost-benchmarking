@@ -30,4 +30,3 @@ class Settings(BaseSettings):
     def ensure_directories(self) -> None:
         for path in (self.raw_dir, self.staged_dir, self.manifest_dir, self.warehouse_path.parent):
             path.mkdir(parents=True, exist_ok=True)
-

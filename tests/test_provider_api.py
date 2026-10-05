@@ -11,4 +11,3 @@ def test_fetch_paginates_and_preserves_rows(monkeypatch):
     frame = client.fetch("example")
     assert frame["facility_id"].tolist() == ["000001", "000002", "000003"]
     client.close()
-

@@ -1,0 +1,33 @@
+Metadata-Version: 2.4
+Name: cms-hospital-quality-cost-benchmarking
+Version: 0.1.0
+Summary: Reproducible CMS hospital quality and cost benchmarking pipeline
+Author: Krishna Sanjay
+License: MIT
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: duckdb<2,>=1.1
+Requires-Dist: httpx<1,>=0.27
+Requires-Dist: numpy<3,>=2.0
+Requires-Dist: pandas<3,>=2.2
+Requires-Dist: pyarrow<22,>=17
+Requires-Dist: pydantic-settings<3,>=2.5
+Requires-Dist: tenacity<10,>=9
+Requires-Dist: typer<1,>=0.12
+Provides-Extra: dev
+Requires-Dist: pytest<9,>=8.3; extra == "dev"
+Requires-Dist: pytest-cov<7,>=5; extra == "dev"
+Requires-Dist: ruff<1,>=0.7; extra == "dev"
+Dynamic: license-file
+
+# CMS Hospital Quality and Cost Benchmarking
+
+An evidence-backed portfolio project that combines real CMS hospital quality,
+patient-experience, utilization, and Medicare cost-report data into one hospital-level
+benchmarking model. The project is under active construction; completed pipeline,
+dashboard, Excel report, tests, and source notes are documented in this repository.
+
+> Public CMS data is used for analytical demonstration. Peer flags are screening signals,
+> not clinical judgments, rankings of care, or causal estimates.
+

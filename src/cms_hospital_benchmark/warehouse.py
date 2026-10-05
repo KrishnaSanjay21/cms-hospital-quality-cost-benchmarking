@@ -6,7 +6,6 @@ from pathlib import Path
 
 import duckdb
 
-
 STAGED_TABLES = {
     "hospital_general": "stg_hospital_general",
     "hcahps": "stg_hcahps",
@@ -27,4 +26,3 @@ def build_relational_model(warehouse_path: Path, staged_dir: Path, sql_dir: Path
                 [path],
             )
         connection.execute((sql_dir / "01_relational_model.sql").read_text(encoding="utf-8"))
-

@@ -11,4 +11,3 @@ def test_kpi_sql_documents_peer_minimum_and_percentiles():
 def test_kpi_sql_uses_safe_denominators():
     sql = (Path(__file__).parents[1] / "sql" / "02_kpi_marts.sql").read_text(encoding="utf-8")
     assert sql.count("NULLIF(") >= 7
-

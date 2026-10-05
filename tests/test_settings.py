@@ -9,4 +9,3 @@ def test_settings_build_expected_subdirectories(tmp_path: Path):
     assert settings.raw_dir.is_dir()
     assert settings.staged_dir.is_dir()
     assert settings.manifest_dir.is_dir()
-

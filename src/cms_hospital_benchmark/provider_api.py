@@ -4,13 +4,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Self
 
 import httpx
 import pandas as pd
 from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_exponential
 
 from .io import write_snapshot
-
 
 PROVIDER_API_ROOT = "https://data.cms.gov/provider-data/api/1/datastore/query"
 
@@ -60,7 +60,9 @@ class ProviderDataClient:
                 break
             offset += len(page_rows)
         if expected_count is not None and len(rows) != expected_count:
-            raise ValueError(f"Incomplete CMS extract for {dataset_id}: {len(rows)} of {expected_count}")
+            raise ValueError(
+                f"Incomplete CMS extract for {dataset_id}: {len(rows)} of {expected_count}"
+            )
         return pd.DataFrame(rows)
 
     def snapshot(self, dataset: ProviderDataset, raw_dir: Path) -> dict:
@@ -71,9 +73,8 @@ class ProviderDataClient:
     def close(self) -> None:
         self.client.close()
 
-    def __enter__(self) -> "ProviderDataClient":
+    def __enter__(self) -> Self:
         return self
 
     def __exit__(self, *_: object) -> None:
         self.close()
-
