@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from io import BytesIO
 from pathlib import Path
 from typing import Self
 
@@ -13,6 +14,7 @@ from tenacity import retry, retry_if_exception_type, stop_after_attempt, wait_ex
 from .io import write_snapshot
 
 PROVIDER_API_ROOT = "https://data.cms.gov/provider-data/api/1/datastore/query"
+PROVIDER_METADATA_ROOT = "https://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items"
 
 
 @dataclass(frozen=True)
@@ -31,7 +33,7 @@ DATASETS = (
 
 
 class ProviderDataClient:
-    def __init__(self, timeout_seconds: float = 120.0, page_size: int = 5000) -> None:
+    def __init__(self, timeout_seconds: float = 120.0, page_size: int = 1000) -> None:
         self.page_size = page_size
         self.client = httpx.Client(timeout=timeout_seconds, follow_redirects=True)
 
@@ -65,9 +67,27 @@ class ProviderDataClient:
             )
         return pd.DataFrame(rows)
 
+    @retry(
+        retry=retry_if_exception_type(httpx.HTTPError),
+        stop=stop_after_attempt(4),
+        wait=wait_exponential(multiplier=1, min=1, max=10),
+        reraise=True,
+    )
+    def fetch_download(self, dataset_id: str) -> tuple[pd.DataFrame, str]:
+        metadata_response = self.client.get(f"{PROVIDER_METADATA_ROOT}/{dataset_id}")
+        metadata_response.raise_for_status()
+        distributions = metadata_response.json().get("distribution", [])
+        csv_distribution = next(
+            item for item in distributions if item.get("mediaType") == "text/csv"
+        )
+        download_url = csv_distribution["downloadURL"]
+        response = self.client.get(download_url)
+        response.raise_for_status()
+        frame = pd.read_csv(BytesIO(response.content), dtype="string", low_memory=False)
+        return frame, download_url
+
     def snapshot(self, dataset: ProviderDataset, raw_dir: Path) -> dict:
-        frame = self.fetch(dataset.dataset_id)
-        source_url = f"{PROVIDER_API_ROOT}/{dataset.dataset_id}/0"
+        frame, source_url = self.fetch_download(dataset.dataset_id)
         return write_snapshot(frame, raw_dir / f"{dataset.name}.parquet", source_url)
 
     def close(self) -> None:

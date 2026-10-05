@@ -10,6 +10,11 @@ from .settings import Settings
 app = typer.Typer(help="Build and validate the CMS hospital benchmark warehouse.")
 
 
+@app.callback()
+def main() -> None:
+    """CMS hospital benchmarking commands."""
+
+
 @app.command()
 def refresh(
     skip_extract: bool = typer.Option(False, help="Reuse existing raw Parquet snapshots."),

@@ -11,3 +11,25 @@ def test_fetch_paginates_and_preserves_rows(monkeypatch):
     frame = client.fetch("example")
     assert frame["facility_id"].tolist() == ["000001", "000002", "000003"]
     client.close()
+
+
+def test_download_uses_catalog_distribution(monkeypatch):
+    class Response:
+        content = b"Facility ID,Facility Name\n010001,Example Hospital\n"
+
+        def raise_for_status(self):
+            return None
+
+        def json(self):
+            return {
+                "distribution": [
+                    {"mediaType": "text/csv", "downloadURL": "https://example.test/data.csv"}
+                ]
+            }
+
+    client = ProviderDataClient()
+    monkeypatch.setattr(client.client, "get", lambda *_args, **_kwargs: Response())
+    frame, url = client.fetch_download("example")
+    assert url == "https://example.test/data.csv"
+    assert frame.loc[0, "Facility ID"] == "010001"
+    client.close()

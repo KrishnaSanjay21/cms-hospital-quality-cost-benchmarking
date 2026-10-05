@@ -16,7 +16,7 @@ COST_API_ROOT = "https://data.cms.gov/data-api/v1/dataset"
 
 
 class CostReportClient:
-    def __init__(self, timeout_seconds: float = 120.0, page_size: int = 5000) -> None:
+    def __init__(self, timeout_seconds: float = 120.0, page_size: int = 1000) -> None:
         self.page_size = page_size
         self.client = httpx.Client(timeout=timeout_seconds, follow_redirects=True)
 

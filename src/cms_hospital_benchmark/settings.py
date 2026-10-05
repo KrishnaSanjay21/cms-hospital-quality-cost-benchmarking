@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     data_dir: Path = Path("data")
     warehouse_path: Path = Path("warehouse/cms_hospital.duckdb")
     http_timeout_seconds: float = 120.0
-    page_size: int = 5000
+    page_size: int = 1000
 
     @property
     def raw_dir(self) -> Path:
