@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.coverage
+.env
+data/raw/
+data/staged/
+warehouse/*.duckdb*
+outputs/**/*.html
+!outputs/cms-hospital-quality-cost-benchmarking/cms_hospital_comparison.xlsx
+
