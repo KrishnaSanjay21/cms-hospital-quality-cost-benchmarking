@@ -1,0 +1,33 @@
+Hospital Count = DISTINCTCOUNT(HospitalBenchmark[ccn])
+
+Hospitals With Rating =
+CALCULATE([Hospital Count], NOT ISBLANK(HospitalBenchmark[overall_rating]))
+
+Median Overall Rating = MEDIAN(HospitalBenchmark[overall_rating])
+
+Median HCAHPS Star = MEDIAN(HospitalBenchmark[hcahps_summary_star])
+
+Median MSPB Ratio = MEDIAN(HospitalBenchmark[mspb_ratio])
+
+Median Expense per Discharge =
+MEDIAN(HospitalBenchmark[operating_expense_per_discharge])
+
+Median Operating Margin = MEDIAN(HospitalBenchmark[operating_margin])
+
+High-Cost Peer Hospitals =
+CALCULATE([Hospital Count], HospitalBenchmark[high_cost_peer_flag] = TRUE())
+
+Low-Quality Peer Hospitals =
+CALCULATE([Hospital Count], HospitalBenchmark[low_quality_peer_flag] = TRUE())
+
+Review Priority Hospitals =
+CALCULATE([Hospital Count], HospitalBenchmark[review_priority_flag] = TRUE())
+
+Cost Report Match Rate =
+DIVIDE(
+    CALCULATE([Hospital Count], NOT ISBLANK(HospitalBenchmark[fiscal_year_end_date])),
+    [Hospital Count]
+)
+
+Rating Coverage Rate = DIVIDE([Hospitals With Rating], [Hospital Count])
+

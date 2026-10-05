@@ -1,0 +1,16 @@
+{
+  "name": "CMS Executive Benchmark",
+  "dataColors": ["#0B3C5D", "#328CC1", "#2A9D8F", "#F4A261", "#C44536", "#7A8B99"],
+  "background": "#F5F7FA",
+  "foreground": "#132238",
+  "tableAccent": "#0B3C5D",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [{"fontFamily": "Segoe UI", "fontSize": 12, "color": {"solid": {"color": "#132238"}}}],
+        "background": [{"color": {"solid": {"color": "#FFFFFF"}}, "transparency": 0}]
+      }
+    }
+  }
+}
+
